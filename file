@@ -1,0 +1,62 @@
+"""
+Cory Thomaier
+8/5/2022
+CIS245-T305 Introduction to Programming (2227-1)
+This week we will create a program that performs file processing activities. Your program this week will use the OS library in order to validate that a directory exists before creating a file in that directory. Your program will prompt the user for the directory they would like to save the file in as well as the name of the file. The program should then prompt the user for their name, address, and phone number. Your program will write this data to a comma separated line in a file and store the file in the directory specified by the user. 
+Once the data has been written, your program should read the file you just wrote to the file system and display the file contents to the user for validation purposes. 
+Submit a link to your Github repository.
+
+"""
+# import os module
+import os
+cont = True
+def primary ():
+
+  # Get directory path from user
+  
+  directory = input("Enter dicrectory to save file: ")
+  
+  # if directory path blank, default to current directory
+  
+  if directory == "":
+  
+      directory = os.path.dirname(os.path.realpath(__file__))
+  
+  # Get file name from user
+  
+  fileName = input("Enter filename: ")
+  
+  # prompt for user for name, address and phone to write to file
+  
+  inputName = input("Enter name: ")
+  inputAddress = input("Enter address: ")
+  inputPhone = input("Enter phone number: ")
+  
+  # create file object to write file in directory
+  
+  with open("{}/{}.csv".format(directory, fileName), 'w') as file:
+      # write file details
+      file.write(",".join([inputName, inputAddress, inputPhone]) + "\n")
+  
+  # create file read from in directory
+  
+  with open("{}/{}.csv".format(directory, fileName), 'r') as file:
+  
+      print("{}\{}.csv contents".format(directory, fileName))
+  
+      #loop through each line in file and print to screen
+  
+      for line in file:
+          print(line)
+  
+
+#repeat the program if user wants to
+while cont == True:
+  primary()
+  print("Do you want to write a new file? Y/N")
+  answer = input()
+  if answer.upper() == "Y":
+    cont = True
+  else:
+    cont = False
+    
